@@ -43,13 +43,5 @@
         <file src="..\src\Plugin.Geofence.Android\bin\Release\Plugin.Geofence.*" target="lib\MonoAndroid10" />
         <!--Xamarin.iOS-->
         <file src="..\src\Plugin.Geofence.iOS\bin\iPhone\Release\Plugin.Geofence.*" target="lib\Xamarin.iOS10" />
-        <!--UWP-->
-        <file src="..\src\Plugin.Geofence.UWP\bin\Release\Plugin.Geofence.*" target="lib\UAP10" />
-        <!--Xamarin.Mac-->
-        <file src="..\src\Plugin.Geofence.Mac\bin\Release\Plugin.Geofence.*" target="lib\Xamarin.Mac20" />
-        <!--tvOS-->
-        <file src="..\src\Plugin.Geofence.tvOS\bin\Release\Plugin.Geofence.*" target="lib\XamarinTVOS" />
-        <!--watchos-->
-        <file src="..\src\Plugin.Geofence.watchOS\bin\Release\Plugin.Geofence.*" target="lib\XamarinWatchOS" />
   </files>
 </package>
