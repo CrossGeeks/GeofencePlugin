@@ -3,11 +3,11 @@
 Simple cross platform plugin to handle geofence events such as entering, leaving and staying in a geofence region.
 
 ### Setup
-* Available on NuGet: http://www.nuget.org/packages/Plugin.Geofence[![NuGet](https://img.shields.io/nuget/v/Plugin.Geofence.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Geofence/)
+* Available on NuGet: http://www.nuget.org/packages/Plugin.Geofence [![NuGet](https://img.shields.io/nuget/v/Plugin.Geofence.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.Geofence/)
 * Install into your PCL project and Client projects.
 
 **Supports**
-* Xamarin.iOS (x64 Unified)
+* Xamarin.iOS 
 * Xamarin.Android
 
 ### TODO
