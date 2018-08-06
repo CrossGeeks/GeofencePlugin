@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <AssemblyName>Plugin.Geofence</AssemblyName>
+    <RootNamespace>Plugin.Geofence</RootNamespace>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.0\Plugin.Geofence.xml</DocumentationFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+
+  <Import Project="..\Plugin.Geofence.Shared\Plugin.Geofence.Shared.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plugin.Geofence.Abstractions\Plugin.Geofence.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

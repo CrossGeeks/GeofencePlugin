@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<package >
+  <metadata minClientVersion="2.8.1">
+    <id>Plugin.Geofence</id>
+    <version>1.0.0</version>
+    <title>Geofence Plugin for Xamarin</title>
+    <authors>Rendy Del Rosario</authors>
+    <owners>crossgeeks</owners>
+    <licenseUrl>https://raw.githubusercontent.com/CrossGeeks/GeofencePlugin/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/CrossGeeks/GeofencePlugin</projectUrl>
+    <iconUrl>https://github.com/CrossGeeks/GeofencePlugin/blob/master/art/icon.png?raw=true</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Monitors geofence regions and handle region state changes events. Across iOS and Android from a single API.</description>
+    <summary>Monitors geofence regions and handle region state changes events. Across iOS and Android from a single API.</summary>
+    <copyright>Copyright 2018</copyright>
+    <tags>iOS,Android,geofence,monitoring,location,region</tags>
+     <dependencies>
+      <group targetFramework="netstandard1.0">
+        <dependency id="NETStandard.Library" version="1.6.1" />
+      </group>
+      <group targetFramework="MonoAndroid80">
+        <dependency id="Xamarin.GooglePlayServices.Location" version="60.1142.1" />
+      </group>
+      <group targetFramework="Xamarin.iOS10">
+      </group>
+      <group targetFramework="Xamarin.Mac20">
+      </group>
+      <group targetFramework="portable-net45+win+wpa81+wp80">
+      </group>
+      <group targetFramework="uap">
+      </group>
+      <group targetFramework="xamarintvos">
+      </group>
+      <group targetFramework="xamarinwatchos">
+      </group>
+    </dependencies>
+    <releaseNotes>Cross Platform Geofence Support</releaseNotes>
+  </metadata>
+  <files>
+        <!--NetStandard/PCL-->
+        <file src="..\src\Plugin.Geofence\bin\Release\netstandard1.0\Plugin.Geofence.*" target="lib\netstandard1.0" />
+        <!--Xamarin.Android-->
+        <file src="..\src\Plugin.Geofence.Android\bin\Release\Plugin.Geofence.*" target="lib\MonoAndroid10" />
+        <!--Xamarin.iOS-->
+        <file src="..\src\Plugin.Geofence.iOS\bin\iPhone\Release\Plugin.Geofence.*" target="lib\Xamarin.iOS10" />
+        <!--UWP-->
+        <file src="..\src\Plugin.Geofence.UWP\bin\Release\Plugin.Geofence.*" target="lib\UAP10" />
+        <!--Xamarin.Mac-->
+        <file src="..\src\Plugin.Geofence.Mac\bin\Release\Plugin.Geofence.*" target="lib\Xamarin.Mac20" />
+        <!--tvOS-->
+        <file src="..\src\Plugin.Geofence.tvOS\bin\Release\Plugin.Geofence.*" target="lib\XamarinTVOS" />
+        <!--watchos-->
+        <file src="..\src\Plugin.Geofence.watchOS\bin\Release\Plugin.Geofence.*" target="lib\XamarinWatchOS" />
+  </files>
+</package>

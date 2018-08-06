@@ -1,0 +1,9 @@
+src/Plugin.Geofence.Android/obj/
+src/Plugin.Geofence.iOS/obj/
+src/Plugin.Geofence.UWP/obj/
+src/Plugin.Geofence/obj/
+src/Plugin.Geofence/bin/
+src/Plugin.Geofence.Android/bin/
+src/Plugin.Geofence.Abstractions/obj/
+src/packages/
+src/.vs/
