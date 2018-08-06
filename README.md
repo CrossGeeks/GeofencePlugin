@@ -26,7 +26,7 @@ Call **CrossGeofence.Current** from any project or PCL to gain access to APIs. M
 **CrossGeofence.Initialize<'T'>**
 This methods initializes geofence plugin. The generic <b>T</b> should be a class that implements IGeofenceListener. This will be the class were you would listen to all geofence events.
 
-####iOS
+#### iOS
 
  On the AppDelegate:
 
@@ -40,7 +40,7 @@ public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 }
 ```
 
-####Android
+#### Android
 
 Create an Geofence service class to be able to handle geofence events even when application is closed.
 
