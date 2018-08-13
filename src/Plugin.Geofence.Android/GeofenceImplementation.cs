@@ -498,6 +498,12 @@ namespace Plugin.Geofence
       
         }
 
+        async internal void UpdateLastKnownLocation()
+        {
+            var location = await mFusedLocationProviderClient.GetLastLocationAsync();
+            SetLastKnownLocation(location);
+        }
+
         internal void SetLastKnownLocation(Android.Locations.Location location)
         {
             if (location != null)
@@ -528,8 +534,7 @@ namespace Plugin.Geofence
  
         async public void OnConnected(Bundle connectionHint)
         {
-            Android.Locations.Location location = await mFusedLocationProviderClient.GetLastLocationAsync();
-            SetLastKnownLocation(location);
+            await UpdateLastKnownLocation();
             if (CurrentRequestType == RequestType.Add)
             {
                 AddGeofences();
