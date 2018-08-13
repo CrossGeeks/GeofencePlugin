@@ -528,7 +528,7 @@ namespace Plugin.Geofence
  
         async public void OnConnected(Bundle connectionHint)
         {
-            Android.Locations.Location location = await mFusedLocationProviderClient.GetLastLocationAsync();
+            var location = await mFusedLocationProviderClient.GetLastLocationAsync();
             SetLastKnownLocation(location);
             if (CurrentRequestType == RequestType.Add)
             {
