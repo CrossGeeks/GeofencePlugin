@@ -197,7 +197,7 @@ Enum of Geofence Transaction Types:
         Unknown
     }
 ```
-####Geofence Circular Region Class  - Properties
+#### Geofence Circular Region Class  - Properties
 
 Class to define and configure geofence region
 
@@ -273,7 +273,7 @@ Class to define and configure geofence region
  public TimeSpan StayedInThresholdDuration;
 ```
 
-####Geofence Result Class - Properties
+#### Geofence Result Class - Properties
 
 When there is a geofence event update you will get an instance of this class.
 
@@ -316,7 +316,7 @@ When there is a geofence event update you will get an instance of this class.
  public double Accuracy { get; set; }
 ```
 
-####**CrossGeofence.Current**
+#### **CrossGeofence.Current**
 Methods and properties
 
 **StartMonitoring**
