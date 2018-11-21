@@ -123,7 +123,8 @@ namespace Plugin.Geofence
         {
             if (!CheckPermissions())
             {
-                RequestPermissions();
+                System.Diagnostics.Debug.WriteLine("Permission was not granted, no-oping.");
+                return;
             }
             //Check if location services are enabled
             IsLocationEnabled((bool locationIsEnabled) => {
@@ -699,12 +700,6 @@ namespace Plugin.Geofence
             }
             else
                 return true;
-        }
-
-        private void RequestPermissions()
-        {            
-            ActivityCompat.RequestPermissions((Activity) Application.Context, new[] { Manifest.Permission.AccessFineLocation }, REQUEST_PERMISSIONS_REQUEST_CODE);
-            System.Diagnostics.Debug.WriteLine("Requesting permissions");
         }
 
         public void OnComplete(Task task)
