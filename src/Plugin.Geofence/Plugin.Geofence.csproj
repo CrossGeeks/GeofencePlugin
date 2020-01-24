@@ -1,21 +1,74 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;MonoAndroid90;Xamarin.iOS10;MonoAndroid10.0;</TargetFrameworks>
     <AssemblyName>Plugin.Geofence</AssemblyName>
     <RootNamespace>Plugin.Geofence</RootNamespace>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.0\Plugin.Geofence.xml</DocumentationFile>
-    <DebugType>none</DebugType>
-    <DebugSymbols>False</DebugSymbols>
+    <PackageId>Plugin.Geofence</PackageId>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.4.0</AssemblyVersion>
+    <AssemblyFileVersion>1.4.0</AssemblyFileVersion>
+    <Version>1.4.0</Version>
+    <PackOnBuild>true</PackOnBuild>
+    <NeutralLanguage>en</NeutralLanguage>
+    <LangVersion>default</LangVersion>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+
+    <LangVersion>latest</LangVersion>
+    <PackageLicenseUrl>https://github.com/CrossGeeks/GeofencePlugin/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/CrossGeeks/GeofencePlugin</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/CrossGeeks/GeofencePlugin/blob/master/assets/icon.png?raw=true</PackageIconUrl>
+    <RepositoryUrl>https://github.com/CrossGeeks/GeofencePlugin</RepositoryUrl>
+    <PackageTags>iOS,Android,geofence,monitoring,location,region</PackageTags>
+
+    <Title>Geofence Plugin for Xamarin</Title>
+    <Summary>Monitors geofence regions and handle region state changes events. Across iOS and Android from a single API.</Summary>
+    <Description>Monitors geofence regions and handle region state changes events. Across iOS and Android from a single API.</Description>
+    <PackageReleaseNotes>Android token registration error handling</PackageReleaseNotes>
+    <Owners>crossgeeks,rdelrosario</Owners>
+    <Authors>Rendy Del Rosario</Authors>
+    <Copyright>Copyright 2018 CrossGeeks</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <Import Project="..\Plugin.Geofence.Shared\Plugin.Geofence.Shared.projitems" Label="Shared" />
+    <!-- Define what happens on build and release -->
+   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DebugType>pdbonly</DebugType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NoWarn>1701;1702;1591</NoWarn>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Plugin.Geofence.xml</DocumentationFile>
+    <Company>CrossGeeks</Company>
+  </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Plugin.Geofence.Abstractions\Plugin.Geofence.Abstractions.csproj" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.shared.*.cs" />
   </ItemGroup>
 
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+    <PackageReference Include="Xamarin.GooglePlayServices.Location" Version="71.1600.0" />
+      <Compile Include="**\*.android.cs" />
+     <Compile Include="**\*.android.*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+    <Compile Include="**\*.apple.cs" />
+     <Compile Include="**\*.apple.*.cs" />
+  </ItemGroup>
 </Project>
