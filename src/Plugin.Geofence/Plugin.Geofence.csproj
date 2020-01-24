@@ -20,7 +20,7 @@
     <LangVersion>latest</LangVersion>
     <PackageLicenseUrl>https://github.com/CrossGeeks/GeofencePlugin/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/CrossGeeks/GeofencePlugin</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/CrossGeeks/GeofencePlugin/blob/master/assets/icon.png?raw=true</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/CrossGeeks/GeofencePlugin/master/art/icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/CrossGeeks/GeofencePlugin</RepositoryUrl>
     <PackageTags>iOS,Android,geofence,monitoring,location,region</PackageTags>
 
