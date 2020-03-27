@@ -525,6 +525,7 @@ Geofence Accuracy Precision Priority enum
 * [bokmadsen](https://github.com/bokmadsen)
 * [jfversluis](https://github.com/jfversluis)
 * [Westat](https://github.com/Westat-Transportation)
+* [jasonmereckixpo](https://github.com/jasonmereckixpo)
 
 This wouldn't be possible without all these great developer posts, articles and references:
 
