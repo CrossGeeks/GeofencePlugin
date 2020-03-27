@@ -125,7 +125,7 @@ namespace Plugin.Geofence
                     CurrentRequestType = RequestType.Default;
                     if(IsMonitoring)
                     {
-                        StartMonitoring(Regions.Values.ToList());
+                        StartMonitoringFrom(Regions);
                         System.Diagnostics.Debug.WriteLine(string.Format("{0} - {1}", CrossGeofence.Id, "Monitoring was restored"));
                     }
                 }
@@ -140,44 +140,48 @@ namespace Plugin.Geofence
 
         public void IsLocationEnabled(Action<bool> returnAction)
         {
-            InitializeGoogleAPI();
-            if(mGoogleApiClient == null || CheckPermissions() == false)
+            lock (Lock)
             {
-                returnAction(false);
-                return;
-            }
-            mFusedLocationProviderClient = LocationServices.GetFusedLocationProviderClient(Android.App.Application.Context);
-            mGeofencingClient = LocationServices.GetGeofencingClient(Application.Context);
-            mGeofenceList = new List<Android.Gms.Location.IGeofence>();
-
-            var locationRequestPriority = LocationRequest.PriorityBalancedPowerAccuracy;
-            switch (CrossGeofence.GeofencePriority)
-            {
-                case GeofencePriority.HighAccuracy:
-                    locationRequestPriority = LocationRequest.PriorityHighAccuracy;
-                    break;
-                case GeofencePriority.LowAccuracy:
-                    locationRequestPriority = LocationRequest.PriorityLowPower;
-                    break;
-                case GeofencePriority.LowestAccuracy:
-                    locationRequestPriority = LocationRequest.PriorityNoPower;
-                    break;
-            }
-            
-            mLocationRequest = new LocationRequest();
-            mLocationRequest.SetPriority(locationRequestPriority);
-            mLocationRequest.SetInterval(CrossGeofence.LocationUpdatesInterval);
-            mLocationRequest.SetFastestInterval(CrossGeofence.FastestLocationUpdatesInterval);
-
-            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().AddLocationRequest(mLocationRequest);
-            var pendingResult = LocationServices.SettingsApi.CheckLocationSettings(mGoogleApiClient, builder.Build());
-            pendingResult.SetResultCallback((LocationSettingsResult locationSettingsResult) => {
-                if (locationSettingsResult != null)
+                InitializeGoogleAPI();
+                if (mGoogleApiClient == null || CheckPermissions() == false)
                 {
-                    returnAction(locationSettingsResult.Status.StatusCode <= CommonStatusCodes.Success);
-                } 
-            });
-            System.Diagnostics.Debug.WriteLine("End of IsLocationEnabled, clients should be created");
+                    returnAction(false);
+                    return;
+                }
+                mFusedLocationProviderClient = LocationServices.GetFusedLocationProviderClient(Android.App.Application.Context);
+                mGeofencingClient = LocationServices.GetGeofencingClient(Application.Context);
+                mGeofenceList = new List<Android.Gms.Location.IGeofence>();
+
+                var locationRequestPriority = LocationRequest.PriorityBalancedPowerAccuracy;
+                switch (CrossGeofence.GeofencePriority)
+                {
+                    case GeofencePriority.HighAccuracy:
+                        locationRequestPriority = LocationRequest.PriorityHighAccuracy;
+                        break;
+                    case GeofencePriority.LowAccuracy:
+                        locationRequestPriority = LocationRequest.PriorityLowPower;
+                        break;
+                    case GeofencePriority.LowestAccuracy:
+                        locationRequestPriority = LocationRequest.PriorityNoPower;
+                        break;
+                }
+
+                mLocationRequest = new LocationRequest();
+                mLocationRequest.SetPriority(locationRequestPriority);
+                mLocationRequest.SetInterval(CrossGeofence.LocationUpdatesInterval);
+                mLocationRequest.SetFastestInterval(CrossGeofence.FastestLocationUpdatesInterval);
+
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().AddLocationRequest(mLocationRequest);
+                var pendingResult = LocationServices.SettingsApi.CheckLocationSettings(mGoogleApiClient, builder.Build());
+                pendingResult.SetResultCallback((LocationSettingsResult locationSettingsResult) =>
+                {
+                    if (locationSettingsResult != null)
+                    {
+                        returnAction(locationSettingsResult.Status.StatusCode <= CommonStatusCodes.Success);
+                    }
+                });
+                System.Diagnostics.Debug.WriteLine("End of IsLocationEnabled, clients should be created");
+            }
         }
 
         /// <summary>
@@ -217,6 +221,16 @@ namespace Plugin.Geofence
                 }
                 //Request to add geofence regions once connected
                 CurrentRequestType = RequestType.Add;
+            }
+        }
+
+        private void StartMonitoringFrom(IReadOnlyDictionary<string, GeofenceCircularRegion> regionsDictionary)
+        {
+            // there is only one lock, which is re-entrant, it's fine to call
+            // another method which locks on the same lock here
+            lock (Lock)
+            {
+                StartMonitoring(regionsDictionary.Values.ToList());
             }
         }
 
@@ -521,7 +535,15 @@ namespace Plugin.Geofence
  
         async public void OnConnected(Bundle connectionHint)
         {
-            var location = await mFusedLocationProviderClient.GetLastLocationAsync();
+            FusedLocationProviderClient localClient = null;
+            // must lock here to ensure initialization is complete before this callback is executed by another thread.
+            // accessing the member var `mFusedLocationProviderClient` within the lock ensures variable publishing.
+            // the local scoped variable can reference the member instance then `await` syntax used outside the lock. 
+            lock (Lock)
+            {
+                localClient = mFusedLocationProviderClient;
+            }
+            var location = await localClient.GetLastLocationAsync();
             SetLastKnownLocation(location);
             if (CurrentRequestType == RequestType.Add)
             {
