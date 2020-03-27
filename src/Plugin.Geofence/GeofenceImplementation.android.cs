@@ -125,7 +125,7 @@ namespace Plugin.Geofence
                     CurrentRequestType = RequestType.Default;
                     if(IsMonitoring)
                     {
-                        StartMonitoring(Regions.Values.ToList());
+                        StartMonitoringFrom(Regions);
                         System.Diagnostics.Debug.WriteLine(string.Format("{0} - {1}", CrossGeofence.Id, "Monitoring was restored"));
                     }
                 }
@@ -221,6 +221,16 @@ namespace Plugin.Geofence
                 }
                 //Request to add geofence regions once connected
                 CurrentRequestType = RequestType.Add;
+            }
+        }
+
+        private void StartMonitoringFrom(IReadOnlyDictionary<string, GeofenceCircularRegion> regionsDictionary)
+        {
+            // there is only one lock, which is re-entrant, it's fine to call
+            // another method which locks on the same lock here
+            lock (Lock)
+            {
+                StartMonitoring(regionsDictionary.Values.ToList());
             }
         }
 
