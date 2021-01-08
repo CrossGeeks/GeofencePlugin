@@ -32,8 +32,6 @@
     <Authors>Rendy Del Rosario</Authors>
     <Copyright>Copyright 2018 CrossGeeks</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageVersion>1.5.999</PackageVersion>
-    <ReleaseVersion>1.5.999</ReleaseVersion>
   </PropertyGroup>
 
     <!-- Define what happens on build and release -->
