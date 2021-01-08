@@ -154,7 +154,7 @@ namespace Plugin.Geofence
               lastKnownGeofenceLocation.Latitude = location.Coordinate.Latitude;
               lastKnownGeofenceLocation.Longitude = location.Coordinate.Longitude;
               lastKnownGeofenceLocation.Accuracy = location.HorizontalAccuracy;
-              DateTime referenceDate = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(2001, 1, 1, 0, 0, 0));
+              DateTime referenceDate = new DateTime(2001, 1, 1, 0, 0, 0);
 
               lastKnownGeofenceLocation.Date = referenceDate.AddSeconds(location.Timestamp.SecondsSinceReferenceDate);
 
